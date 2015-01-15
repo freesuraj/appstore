@@ -62,14 +62,15 @@ module.exports = {
 			}
 			// Upload the app build
         	var Up = require("./FileController");
-			if(req.files)
+			if(req.file('appbuild'))
 			{
-				res.setTimeout(6000);
-				Up.upload(req,'appbuild', function(err, filesJson)
+				console.log("i do have stuffs to upload.. \n trying to dump em over to s3");
+				res.setTimeout(60000);
+				Up.s3upload(req,'appbuild', function(err, filesJson)
 				{
 					if(!err)
 					{
-						fullDir = filesJson[0].fd;
+						build.url = filesJson[0].fd.extra.Location;
 						build.url =  "/uploads/"+require('path').basename(fullDir);
 						var plistDir =   require('path').dirname(fullDir)+"/test.plist";
 						writeplist.writePlist(plistDir,"build.app.bundleid",build.version, build.url,"build.app.name",function(err, data){
@@ -120,15 +121,18 @@ module.exports = {
 				return ;
 			}
 
-			if(req.files)
+			if(req.file('picture'))
 			{
+				console.log("trying to upload picture to s3");
 				var Up = require("./FileController");
-				Up.upload(req,'picture', function(err, filesJson)
+				res.setTimeout(60000);
+				Up.s3upload(req,'picture', function(err, filesJson)
 				{
 					if(!err)
 					{
-						fullDir = filesJson[0].fd;
-						app.picture =  "/uploads/"+require('path').basename(fullDir);
+						console.log("upload result "+ JSON.stringify(filesJson));
+						app.picture = filesJson[0].extra.Location;
+						// app.picture =  "/uploads/"+require('path').basename(fullDir);
 					}
 					app.save(function (err, app) {
 						res.redirect('app/show/' + app.id);

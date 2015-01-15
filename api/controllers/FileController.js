@@ -62,7 +62,7 @@ module.exports = {
    * the TCP connection timeout.  This is demonstrated as the
    * first line of the action below.
    */
-  s3upload: function (req, res) {
+  s3upload: function (req, filename, callback) {
 
     // e.g.
     // 0 => infinite
@@ -70,19 +70,16 @@ module.exports = {
     // etc.
     //
     // Node defaults to 2 minutes.
-    res.setTimeout(0);
+    // res.setTimeout(0);
 
-    req.file('avatar').upload({
+    req.file(filename).upload({
       adapter: require('skipper-s3'),
-      bucket: process.env.BUCKET,
-      key: process.env.KEY,
-      secret: process.env.SECRET
+      bucket: sails.config.aws.bucket,
+      key: sails.config.aws.key,
+      secret: sails.config.aws.secret
     }, function whenDone(err, uploadedFiles) {
-      if (err) return res.serverError(err);
-      else return res.json({
-        files: uploadedFiles,
-        textParams: req.params.all()
-      });
+      console.log("upload result " + err + uploadedFiles);
+      callback(err, uploadedFiles);
     });
   },
 
