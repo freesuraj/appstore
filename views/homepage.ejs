@@ -27,6 +27,16 @@
 </nav>
 <% } %>
 
+<!-- Put Server returned error flashes here -->
+<% if(flash && flash.err) { %>
+    <ul class="alert alert-success">
+  <% Object.keys(flash.err).forEach(function(error) { %>
+    <li><%- JSON.stringify(flash.err[error]) %></li>
+  <% }) %>
+  </ul>
+  <% } %>
+
+
 <% if(session.authenticated) {  %>
 <br>
 <table class='table-striped table-bordered'>

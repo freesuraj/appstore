@@ -26,13 +26,18 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
+  '*': "flash",
   App: {
     'show': true,
     'showbuild': true,
-    '*' : "sessionAuth",
+    'form': true,
+    '*' : ["sessionAuth", "flash"],
   },
   Build: {
-    '*': "sessionAuth"
+    '*': ["sessionAuth", "flash"]
+  },
+  User: {
+    '*': ["sessionAuth", "flash"]
   }
 
   /***************************************************************************

@@ -10,6 +10,16 @@
 <div id = "iconImage">
 </div>
 <form enctype="multipart/form-data" class="form-newapp" action="/app/create" method="POST">
+
+<!-- Put Server returned error flashes here -->
+<% if(flash && flash.err) { %>
+    <ul class="alert alert-success">
+  <% Object.keys(flash.err).forEach(function(error) { %>
+    <li><%- JSON.stringify(flash.err[error]) %></li>
+  <% }) %>
+  </ul>
+  <% } %>
+
 <div class="row">
       <div class="form-group  col-sm-5">
         	<label  class="control-label" for="appIcon">App Icon</label>
@@ -20,21 +30,21 @@
 <div class="row">
     	<div class="form-group  col-sm-5">
         	<label  class="control-label" for="appName">App Name</label>
-        	<input type="text" class="form-control" id="appName" name= "appName" placeholder="App Name">
+        	<input type="text" class="form-control" id="appName" name= "appName" placeholder="App Name" data-validation="length" data-validation-length="2-20">
     	</div>
 </div>
 
 <div class="row">
     	<div class="form-group  col-sm-5">
     		<label  class="control-label" for="appBundleId">App Bundle Id</label>
-   			<input type="text" class="form-control" id="bundleId" name="appBundleId" placeholder="App Bundle Id">
+   			<input type="text" class="form-control" id="bundleId" name="appBundleId" placeholder="App Bundle Id" data-validation="url">
    		 </div>
 </div>
 
 <div class="row">
     	<div class="form-group  col-sm-5">
         	<label class="control-label" for="appDetail">App Description</label>
-        	<textarea class="form-control" rows="10" id="appDetail" name="appDetail"></textarea>
+        	<textarea class="form-control" rows="10" id="appDetail" name="appDetail" data-validation="required"></textarea>
     	</div>
 </div>
 

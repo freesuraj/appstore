@@ -33,12 +33,15 @@ module.exports = {
 				name: 'usernamePasswordRequired',
 				message: 'You must enter both a username and password.'
 			}]
-			return res.send(usernamePasswordRequiredError);
+
+			req.session.flash = {
+				err: usernamePasswordRequiredError
+			}
+
+			res.redirect('/');
+			return;
 		}
 
-		// Try to find the user by there email address. 
-		// findOneByEmail() is a dynamic finder in that it searches the model by a particular attribute.
-		// User.findOneByEmail(req.param('email')).done(function(err, user) {
 		User.findOneByEmail(req.param('email'), function foundUser(err, user) {
 			if (err) return next(err);
 
@@ -48,7 +51,11 @@ module.exports = {
 					name: 'noAccount',
 					message: 'The email address ' + req.param('email') + ' not found.'
 				}]
-				return res.send(noAccountError);
+				req.session.flash = {
+					err: noAccountError
+				}	
+				res.redirect('/');
+				return;
 			}
 
 			// Compare password from the form params to the encrypted password of the user found.
@@ -61,7 +68,10 @@ module.exports = {
 						name: 'usernamePasswordMismatch',
 						message: 'Invalid username and password combination.'
 					}]
-					return res.send(usernamePasswordMismatchError);
+
+					req.session.flash = {err: usernamePasswordMismatchError}
+					res.redirect('/');	
+					return;				
 				}
 
 				// Log user in

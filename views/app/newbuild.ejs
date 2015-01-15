@@ -31,6 +31,17 @@ function validateForm() {
   <h5><%= app.bundleid %></h5>
 </div>
 <form name="myForm" enctype="multipart/form-data" class="form-newapp" action="/app/createbuild" method="POST" onsubmit="return window.validateForm()" >
+
+<!-- Put Server returned error flashes here -->
+<% if(flash && flash.err) { %>
+    <ul class="alert alert-success">
+  <% Object.keys(flash.err).forEach(function(error) { %>
+    <li><%- JSON.stringify(flash.err[error]) %></li>
+  <% }) %>
+  </ul>
+  <% } %>
+
+
 <div class="row">
 <div class="form-group  col-sm-5">
         	<label  class="control-label" for="appBuild">App Build (.ipa file)</label>

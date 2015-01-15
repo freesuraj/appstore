@@ -13,7 +13,12 @@ module.exports = {
 			res.json(applist);
   		});
 	},
+	
 	'new': function(req, res) {
+		res.view();
+	},
+
+	'form': function(req, res) {
 		res.view();
 	},
 
@@ -33,7 +38,9 @@ module.exports = {
 
 		form.parse(req, function(err, fields, files){
 		if(err){
-			return res.badRequest();
+			req.session.flash = {err: err}
+			res.redirect('/app/newbuild/'+fields.appid);
+			return ;
 		}
 		var buildObj = {
 			version: fields.version,
@@ -42,13 +49,16 @@ module.exports = {
 		}
 
 		if(!fields.appid){
-			return res.badRequest();
+			req.session.flash = {err: [{name: 'appId missing', message: 'App ID associated with this build couldnot be found'}]}
+			res.redirect('/app/newbuild/'+fields.appid);
+			return ;
 		}
 
 		Build.create(buildObj, function buildCreated(err, build) {
 			if (err) {
-				console.log("the error" + err);
-				return res.send({error: "error"});
+				req.session.flash = {err: err}
+				res.redirect('/app/newbuild/'+fields.appid);
+				return ;
 			}
 			// Upload the app build
         	var Up = require("./FileController");
@@ -57,7 +67,6 @@ module.exports = {
 				res.setTimeout(6000);
 				Up.upload(req,'appbuild', function(err, filesJson)
 				{
-					console.log("build upload result "+ err || filesJson);
 					if(!err)
 					{
 						fullDir = filesJson[0].fd;
@@ -92,15 +101,23 @@ module.exports = {
 		};
 
 		if(!appObj.name || !appObj.detail || !appObj.bundleid){
-			res.badRequest();
+			var missingFieldsError = [{
+				name: 'missingFields',
+				message: 'App Name, App bundle Id and App detail are required !'
+			}]
+
+			req.session.flash = {err: missingFieldsError}
+			res.redirect('/app/new');
+			return ;
 		}
 
 		// Create an App with the params sent from the form
 		App.create(appObj, function appCreated(err, app)
 		{
 			if (err) {
-				console.log("the error" + err);
-				return res.send({error: "error"});
+				req.session.flash = {err: err}
+				res.redirect('/app/create');
+				return ;
 			}
 
 			if(req.files)
