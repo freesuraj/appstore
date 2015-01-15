@@ -1,0 +1,41 @@
+<div class="container">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+       <h3 margin-left = "10px"><i class="fa fa-plus fa-fw fa-1x"></i>Edit Build</h3>
+    </div>
+  </div>
+</nav>
+
+<div>
+  <img src="<%= build.owner.picture %>" class="img-rounded" height = "100px" weight = "100px" alt="App Icon">
+  <h3><%= build.owner.name %> </h3>
+  <h5><%= build.owner.bundleid %></h5>
+</div>
+<form enctype="multipart/form-data" class="form-newapp" action="/app/updatebuild" method="POST">
+<div class="row">
+<div class="form-group  col-sm-5">
+        	<label  class="control-label" for="appBuild">App Build (.ipa file)</label>
+        	<input type="file" class="form-control" id="appbuild" placeholder="Choose File" name="appbuild" accept=".ipa">
+    	</div>
+      <input type="hidden" name="buildid" value="<%= build.id%>" >
+ </div>
+<div class="row">
+    	<div class="form-group  col-sm-5">
+        	<label  class="control-label" for="versionNo">Version No.</label>
+        	<input type="text" class="form-control" id="versionNo" name="version" value="<%= build.version%>">
+    	</div>
+</div>
+<div class="row">
+    	<div class="form-group  col-sm-5">
+        	<label class="control-label" for="appDetail">Version Notes</label>
+        	<textarea class="form-control" rows="10" value = "random text" id="appDetail" name="appdetail"><%= build.detail%></textarea>
+    	</div>
+</div>
+<div class="row">
+   		<div class="form-group col-sm-5">
+    		<button type="submit" class="btn btn-primary">Add New Build</button>
+    	</div>
+</div>
+</form>
+</div>

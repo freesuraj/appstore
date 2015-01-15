@@ -1,0 +1,56 @@
+.form-signin {
+max-width: 80%;
+padding: 19px 29px 29px;
+margin: 0 auto 20px;
+margin-top: 20px;
+background-color: #F4F5F2;
+border: 1px solid #E1E3DE;
+-webkit-border-radius: 15px;
+-moz-border-radius: 15px;
+border-radius: 15px;
+
+  h2 {
+    text-align: center;
+    margin-top: 0px;
+  }
+}
+
+.form-newapp {
+max-width: 100%;
+vertical-align: center;
+padding: 19px 29px 29px;
+margin: 0 auto;
+margin-top: 20px;
+background-color: #F4F5F2;
+border: 1px solid #E1E3DE;
+-webkit-border-radius: 15px;
+-moz-border-radius: 15px;
+border-radius: 15px;
+
+  h2 {
+    text-align: center;
+    margin-top: 0px;
+  }
+}
+
+html, body, .container {
+  height: 100%;
+}
+textarea.form-control {
+  height: 100%;
+}
+
+th {
+  padding: 10px;
+  text-align: center;
+}
+td {
+  padding: 10px;
+}
+
+.truncate {  
+  white-space: wrap;                      
+  max-width: 600px;
+  overflow: hidden;              /* "overflow" value must be different from "visible" */    
+  text-overflow: ellipsis;  
+}

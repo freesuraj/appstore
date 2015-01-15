@@ -1,0 +1,25 @@
+<div class="container">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+       <h3 margin-left = "10px"><i class="fa fa-mobile fa-fw fa-1x"></i><%= build.owner.name %> <b><%= build.version%></b></h3>
+    </div>
+    </div>
+  </nav>
+
+<!-- <div class="container"> -->
+<div>
+	<img src="<%=build.owner.picture%>" class="img-rounded" height = "100px" weight = "100px" alt="App Icon">
+</div>
+<br>
+<div>
+  <td><a href="<%= build.plist %>" class="btn btn-sm btn-primary"><i class="fa fa-download fa-fw fa-1x">
+  </i> Download</a></td>
+  </div>
+  <div>
+	<h3><%= build.owner.name %> </h3>
+	<h5>version: <b><%= build.version %></b></h5>
+  <h5>updated at: <b><%= build.updatedAt %></b></h5>
+  <h5>Notes:</h5>
+	<p><%= build.detail %> </p>
+</div>

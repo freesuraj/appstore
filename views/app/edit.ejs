@@ -1,0 +1,73 @@
+<nav class="container">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+       <h3 margin-left = "10px"><i class="fa fa-plus fa-fw fa-1x"></i>Edit <%= app.name%></h3>
+    </div>
+  </div>
+</nav>
+
+<div id = "iconImage">
+  <img id ="thumbnail" src="<%=app.picture%>" class="img-rounded" height = "100px" weight = "100px" alt="App Icon">
+</div>
+
+<form enctype="multipart/form-data" class="form-newapp" action="/app/update" method="POST">
+<div class="row">
+      <div class="form-group  col-sm-5">
+        	<label  class="control-label" for="appIcon">App Icon</label>
+        	<input type="file" class="form-control" id="imagePicker" placeholder="Choose Image"  accept="image/jpeg, image/png" name="picture">
+      </div>
+      <input type="hidden" name="appid" value=<%= app.id%> >
+ </div>
+
+<div class="row">
+    	<div class="form-group  col-sm-5">
+        	<label  class="control-label" for="appName">App Name</label>
+        	<input type="text" class="form-control" id="appName" name= "appName" placeholder="App Name" value = "<%= app.name%>">
+    	</div>
+</div>
+
+<div class="row">
+    	<div class="form-group  col-sm-5">
+    		<label  class="control-label" for="appBundleId">App Bundle Id</label>
+   			<input type="text" class="form-control" id="bundleId" name="appBundleId" placeholder="App Bundle Id" value ="<%= app.bundleid%>" >
+   		 </div>
+</div>
+
+<div class="row">
+    	<div class="form-group  col-sm-5">
+        	<label class="control-label" for="appDetail">App Description</label>
+        	<textarea class="form-control" rows="10" id="appDetail" name="appDetail"><%= app.detail%></textarea>
+    	</div>
+</div>
+
+<div class="row">
+   		<div>
+    		<button type="submit" class="btn btn-primary col-sm-5">Update</button>
+    	</div>
+</div>
+<br>
+</form>
+</div>
+
+<script>
+	if (window.FileReader) {
+      function handleFileSelect(evt) {
+        var files = evt.target.files;
+        var f = files[0];
+        var reader = new FileReader();
+		
+          reader.onload = (function(theFile) {
+            return function(e) {
+              document.getElementById('iconImage').innerHTML = ['<img src="', e.target.result,'" title="', theFile.name, '" width="100px" height="100px" class="img-rounded" />'].join('');
+            };
+          })(f);
+    
+          reader.readAsDataURL(f);
+      }
+	 } else {
+	  alert('This browser does not support FileReader');
+	}
+    
+      document.getElementById('imagePicker').addEventListener('change', handleFileSelect, false);
+</script>

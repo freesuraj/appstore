@@ -1,0 +1,55 @@
+<div class="container">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+       <h3 margin-left = "10px"><i class="fa fa-mobile fa-fw fa-1x"></i><%= app.name %></h3>
+    </div>
+    </div>
+      <% if(session.authenticated) { %>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a class="btn btn-default" href="/app/newbuild/<%= app.id %>" role="button"><i class="fa fa-plus-circle fa-1.5x"></i>  Add New Build</a>
+          </li>
+        </ul>
+      <% } %>
+</nav>
+
+<!-- <div class="container"> -->
+<div>
+	<img src="<%=app.picture%>" class="img-rounded" height = "100px" weight = "100px" alt="App Icon">
+	<h3><%= app.name %> </h3>
+	<h5><%= app.bundleid %></h5>
+	<p><%= app.detail %> </p>
+<br>
+<h3>Builds</h3>
+<table class='table-striped table-bordered'>
+    <tr>
+      <th>Version No.</th>
+      <th>Updated at</th>
+      <th></th>
+      <% if(session.authenticated) { %>
+      <th></th>
+      <th></th>
+      <% } %>
+    </tr>
+    
+    <% _.each(app.builds, function(build) { %>
+    <tr data-id="<%= build.id %>" data-model="appbuild">
+      <td><a align="middle" href="/app/showbuild/<%=build.id%>"><img src="<%= app.picture %>" width="50" height="50" class = "img-circular"><br><%= build.version %> </a></td>
+      <td class="truncate"><%= build.updatedAt %></td>
+      <td><a href="<%= build.plist %>" class="btn btn-sm btn-primary"><i class="fa fa-download fa-fw fa-1x"></i> Download</a></td>
+      <% if(session.authenticated) { %>
+      <td><a href="/app/editbuild/<%= build.id %>" class="btn btn-sm btn-warning">Edit</a></td>
+      <td><form action="/app/destroybuild/<%= build.id %>" method="POST">
+        <input type="hidden" name="_method" value="delete"/>
+        <input type="submit" class="btn btn-sm btn-danger" value="Delete"/>
+        <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+      </form></td>
+      <% } %>
+    </tr> 
+
+    <% }) %>
+  </table>
+<!-- </div> -->
+
+</div>

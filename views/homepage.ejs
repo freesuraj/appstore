@@ -1,0 +1,64 @@
+<div class="container">
+
+<% if(!session.authenticated) { %>
+	<form action="/session/create" method="POST" class="form-signin">
+  <div class="input-group margin-bottom-sm">
+  <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+  <input class="form-control" type="text" placeholder="Email address" name="email">
+</div>
+<div class="input-group">
+  <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+  <input class="form-control" type="password" placeholder="Password" name="password">
+</div>
+</br>
+  <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign-in"/>
+  <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+</form>
+</div>
+<% } %>
+
+<% if(session.authenticated) { %>
+	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+       <h3 margin-left = "10px"><i class="fa fa-mobile fa-fw fa-1x"></i>Apps</h3>
+    </div>
+  </div>
+</nav>
+<% } %>
+
+<% if(session.authenticated) {  %>
+<br>
+<table class='table-striped table-bordered'>
+    <tr>
+      <th>App Name</th>
+      <th>Detail</th>
+      <th>Latest Build</th>
+      <th>Date Updated</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    
+    <% _.each(apps, function(app) { %>
+    <tr data-id="<%= app.id %>" data-model="apps">
+      <td><a align="middle" href="app/show/<%=app.id%>"><img src="<%= app.picture %>" width="50" height="50" class = "img-circular"><br><%= app.name %> </a></td>
+      <td class="truncate"><%= app.detail %></td>
+      <td><%= app.bundleid %></td>
+      <td><%= app.updatedAt %></td>
+      <td><a href="/app/newbuild/<%= app.id %>" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle "> Build</a></td>
+      <td><a href="/app/edit/<%= app.id %>" class="btn btn-sm btn-warning">Edit</a></td>
+
+      <td><form action="/app/destroy/<%= app.id %>" method="POST">
+        <input type="hidden" name="_method" value="delete"/>
+        <input type="submit" class="btn btn-sm btn-danger" value="Delete"/>
+        <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+      </form></td>
+    </tr> 
+
+    <% }) %>
+  </table>
+<% } %>
+
+
+    

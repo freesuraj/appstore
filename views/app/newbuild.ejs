@@ -1,0 +1,60 @@
+<script type="text/javascript">
+function validateForm() {
+    var x = document.getElementById('appbuild').value;
+    var y = document.getElementById('version').value;
+
+    if (!isNaN(y) && y.toString().indexOf('.') != -1)
+    {
+    alert('version no. should be a float value');
+    return false;
+    }​
+    if (x == '') {
+        alert("Please attach an ipa file");
+        return false;
+    }
+}
+</script>
+
+
+<div class="container">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+       <h3 margin-left = "10px"><i class="fa fa-plus fa-fw fa-1x"></i>New Build</h3>
+    </div>
+  </div>
+</nav>
+
+<div>
+  <img src="<%=app.picture%>" class="img-rounded" height = "100px" weight = "100px" alt="App Icon">
+  <h3><%= app.name %> </h3>
+  <h5><%= app.bundleid %></h5>
+</div>
+<form name="myForm" enctype="multipart/form-data" class="form-newapp" action="/app/createbuild" method="POST" onsubmit="return window.validateForm()" >
+<div class="row">
+<div class="form-group  col-sm-5">
+        	<label  class="control-label" for="appBuild">App Build (.ipa file)</label>
+        	<input type="file" class="form-control" id="appbuild" placeholder="Choose File" name="appbuild" accept=".ipa">
+    	</div>
+      <input type="hidden" name="appid" value=<%= app.id%> >
+ </div>
+<div class="row">
+    	<div class="form-group  col-sm-5">
+        	<label  class="control-label" for="versionNo">Version No.</label>
+        	<input type="text" class="form-control" id="versionNo" value="1.1" name="version">
+    	</div>
+</div>
+<div class="row">
+    	<div class="form-group  col-sm-5">
+        	<label class="control-label" for="appDetail">Version Notes</label>
+        	<textarea class="form-control" rows="10" value = "random text" id="appDetail" name="appdetail"></textarea>
+    	</div>
+</div>
+<div class="row">
+   		<div class="form-group col-sm-5">
+    		<button onclick = "return validateForm()" type="submit" value = "submit" class="btn btn-primary">Add New Build</button>
+    	</div>
+</div>
+</form>
+</div>
+
