@@ -9,6 +9,7 @@
 
 <div id = "iconImage">
 </div>
+
 <form enctype="multipart/form-data" class="form-newapp" action="/app/create" method="POST">
 
 <!-- Put Server returned error flashes here -->
@@ -23,28 +24,28 @@
 <div class="row">
       <div class="form-group  col-sm-5">
         	<label  class="control-label" for="appIcon">App Icon</label>
-        	<input type="file" class="form-control" id="imagePicker" placeholder="Choose Image"  accept="image/jpeg, image/png" name="picture">
+        	<input type="file" class="form-control" id="imagePicker" placeholder="Choose Image"  accept="image" name="picture">
       </div>
  </div>
 
 <div class="row">
     	<div class="form-group  col-sm-5">
         	<label  class="control-label" for="appName">App Name</label>
-        	<input type="text" class="form-control" id="appName" name= "appName" placeholder="App Name" data-validation="length" data-validation-length="2-20">
+        	<input type="text" class="form-control" id="appName" name= "name" placeholder="App Name" data-validation="length" data-validation-length="2-20">
     	</div>
 </div>
 
 <div class="row">
     	<div class="form-group  col-sm-5">
     		<label  class="control-label" for="appBundleId">App Bundle Id</label>
-   			<input type="text" class="form-control" id="bundleId" name="appBundleId" placeholder="App Bundle Id" data-validation="url">
+   			<input type="text" class="form-control" id="bundleId" name="bundleid" placeholder="App Bundle Id" data-validation="url">
    		 </div>
 </div>
 
 <div class="row">
     	<div class="form-group  col-sm-5">
         	<label class="control-label" for="appDetail">App Description</label>
-        	<textarea class="form-control" rows="10" id="appDetail" name="appDetail" data-validation="required"></textarea>
+        	<textarea class="form-control" rows="10" id="appDetail" name="detail" data-validation="required"></textarea>
     	</div>
 </div>
 

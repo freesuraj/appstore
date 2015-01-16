@@ -17,6 +17,9 @@
 # to fit your needs!
 ################################################
 
+// Upload files
+assets/uploads/
+
 
 
 
@@ -41,6 +44,8 @@
 
 config/local.js
 config/aws.js
+
+
 
 
 

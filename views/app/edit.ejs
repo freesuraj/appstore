@@ -17,27 +17,27 @@
         	<label  class="control-label" for="appIcon">App Icon</label>
         	<input type="file" class="form-control" id="imagePicker" placeholder="Choose Image"  accept="image/jpeg, image/png" name="picture">
       </div>
-      <input type="hidden" name="appid" value=<%= app.id%> >
+      <input type="hidden" name="id" value=<%= app.id%> >
  </div>
 
 <div class="row">
     	<div class="form-group  col-sm-5">
         	<label  class="control-label" for="appName">App Name</label>
-        	<input type="text" class="form-control" id="appName" name= "appName" placeholder="App Name" value = "<%= app.name%>">
+        	<input type="text" class="form-control" id="appName" name= "name" placeholder="App Name" value = "<%= app.name%>">
     	</div>
 </div>
 
 <div class="row">
     	<div class="form-group  col-sm-5">
     		<label  class="control-label" for="appBundleId">App Bundle Id</label>
-   			<input type="text" class="form-control" id="bundleId" name="appBundleId" placeholder="App Bundle Id" value ="<%= app.bundleid%>" >
+   			<input type="text" class="form-control" id="bundleId" name="bundleid" placeholder="App Bundle Id" value ="<%= app.bundleid%>" >
    		 </div>
 </div>
 
 <div class="row">
     	<div class="form-group  col-sm-5">
         	<label class="control-label" for="appDetail">App Description</label>
-        	<textarea class="form-control" rows="10" id="appDetail" name="appDetail"><%= app.detail%></textarea>
+        	<textarea class="form-control" rows="10" id="appDetail" name="detail"><%= app.detail%></textarea>
     	</div>
 </div>
 
